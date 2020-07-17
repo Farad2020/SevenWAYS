@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>7WAYS</title>
+
+    <!-- Favicon -->
+    <link href="/static/logotype/7WaysLogoPrototype2.png" rel="shortcut icon"/>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <img class="main-logo" src="/static/logotype/7WaysLogoPrototype2.png" width="32" height="32">
+    <p class="navbar-brand" >7WAYS</p>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'MainApp:index' %}">Главная <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Поиск..." aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ПОИСК</button>
+        </form>
+    </div>
+</nav>
+
+<!-- Content -->
+{% block content %}
+    <div class="content" >
+        <legend class="border-bottom mb-4"> <h2>{{ place.place_name }} </h2></legend>
+        <div class="place_img float-left">
+            {% if place_image %}
+                {% for img in place_image %}
+                    <img src="{{ img.place_img.url }}">
+                {% endfor %}
+            {% else %}
+                <img class="place_img" src="/static/sketches/house_v1.png" >
+            {% endif %}
+        </div>
+        <div class="place_info">
+            <ul class="list-group">
+                <li class="list-group-item">Адрес: {% if place.place_address %} {{ place.place_address }}
+                {% else %} {{ "Отсутствует" }}
+                {%   endif %}</li>
+
+                <li class="list-group-item">Телефон:  {% if place.place_phone %} {{ place.place_phone }}
+                {% else %} {{ "Отсутствует" }}
+                {%   endif %}</li>
+
+                <li class="list-group-item">Тип Здания: {% if place.place_building_type %} {{ place.place_building_type }}
+                {% else %} {{ "Отсутствует" }}
+                {%   endif %}</li>
+
+                <li class="list-group-item">Email Адрес: {% if place.place_email %} {{ place.place_email }}
+                {% else %} {{ "Отсутствует" }}
+                {%   endif %}</li>
+
+                <li class="list-group-item">Рабочий График: {% if work_time %}
+                    {% for time in work_time %}
+                        <div class="timelist">
+                            {{ time.start_time|time:"H:i" }} - {{ time.end_time|time:"H:i" }} : {{ time.working_days }}</div>
+                    {% endfor %}
+                {% else %} {{ "Отсутствует" }}
+                {% endif %}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="comment-section">
+
+            <legend class="border-bottom mb-4">
+                <div class="navbar-brand" style="margin-top: 1em"> <h2>Отзывы: </h2></div></legend>
+            <div class="comment-counter">Число Отзывов: {{ comments.count }}</div>
+            <legend class="border-bottom mb-4"></legend>
+            <div class="comment-counter">Число Положительных Отзывов: {{ good_comments }}</div>
+            <legend class="border-bottom mb-4"></legend>
+            <div class="comment-counter">Число Безразличных Отзывов: {{ tolerable_comments }}</div>
+            <legend class="border-bottom mb-4"></legend>
+            <div class="comment-counter">Число Негативных Отзывов: {{ impossible_comments }}</div>
+            <legend class="border-bottom mb-4"></legend>
+            {% for comment in comments %}
+                {% if  "Good" in  comment.reviewers_attitude %}
+                    <div class="card text-white bg-success">
+                        <div class="card-header">Анонимно: {{ comment.reviewers_attitude }}</div>
+                        <div class="card-body">
+                            <h6 class="card-title"> {{ comment.review_date|date:'Y.m.d H:i' }}</h6>
+                            <h5 class="card-title">{{ comment.reviewers_disability_type }}</h5>
+                            <p class="card-text">{{ comment.reviewers_comment }}</p>
+                        </div>
+                    </div>
+
+                {% elif  "Impossible" in  comment.reviewers_attitude %}
+                    <div class="card text-white bg-danger">
+                        <div class="card-header">Анонимно: {{ comment.reviewers_attitude }}</div>
+                        <div class="card-body">
+                            <h6 class="card-title"> {{ comment.review_date|date:'Y.m.d H:i' }} </h6>
+                            <h5 class="card-title">{{ comment.reviewers_disability_type }}</h5>
+                            <p class="card-text">{{ comment.reviewers_comment }}</p>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-dark mb-3">
+                        <div class="card-header">Анонимно: {{ comment.reviewers_attitude }}</div>
+                        <div class="card-body">
+                            <h6 class="card-title"> {{ comment.review_date|date:'Y.m.d H:i' }} </h6>
+                            <h5 class="card-title"> {{ comment.reviewers_disability_type }} </h5>
+                            <p class="card-text">{{ comment.reviewers_comment }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+                <br>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}
+
+
+<!-- Navbar JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

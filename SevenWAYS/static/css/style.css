@@ -1,0 +1,70 @@
+input.form-control {
+    width: 500px!important;
+}
+
+.navbar-brand{
+    margin: 0;
+    margin-right: 1em;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.td{
+    padding: 10px;
+    overflow: auto;
+}
+
+.place_space{
+    margin: 1em;
+}
+
+.content{
+    margin: 1em;
+}
+
+.main-logo{
+    margin-right: 1em;
+}
+
+.place_info{
+    margin-left: 1em;
+    margin-right: 2em;
+}
+
+img.place_img{
+    width: 16em;
+    margin: 1em;
+}
+
+.place_box{
+    margin: 0.5em;
+}
+
+.comment_box{
+    margin: 1em;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

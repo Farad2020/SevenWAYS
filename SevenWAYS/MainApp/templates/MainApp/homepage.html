@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>7WAYS</title>
+
+    <!-- Favicon -->
+    <link href="/static/logotype/7WaysLogoPrototype2.png" rel="shortcut icon"/>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <img class="main-logo" src="/static/logotype/7WaysLogoPrototype2.png" width="32" height="32">
+    <p class="navbar-brand" >7WAYS</p>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'MainApp:index' %}">Главная <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Вид Списка
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Все Объекты</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Самые Негативные Объекты</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Поиск..." aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ПОИСК</button>
+        </form>
+    </div>
+</nav>
+
+<!-- Content -->
+{% block content %}
+    <div class="content" >
+        <legend class="border-bottom mb-4"><div class="navbar-brand"> <h2>Список Объектов: </h2></div></legend>
+
+        {% for place in places %}
+            <div class="place_space" >
+                {#							<!-- <div class="score yellow">{{ game.game_score }}</div>#}
+                {#							<img src="{{ game.game_img.url }}" class="pg-img" /> -->#}
+                {#                            <!--{% url 'game_pages:game_det' game.id %}  -->#}
+                {% for i in '01234567891011'|make_list %}
+
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="place_box" >
+                                <h5><a  href="{% url 'MainApp:place_det' place.id %}">{{ place.place_name }}</a></h5>
+                            </div>
+                        </li>
+                    </ul>
+
+                {% endfor %}
+
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+<!-- Navbar JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
