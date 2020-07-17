@@ -18,8 +18,32 @@ return (return regular statement)
 # Maybe use smaller list, that could be loaded by the press of a button, or going to the next page
 def index(request):
     places = Place.objects.all()
+    place_and_comments = {}
+    for place in places:
+        place_and_comments[place] = find_bad_comments_num(place)
+
+    place_and_comments = {k: v for k, v in sorted(place_and_comments.items(), key=lambda item: item[1], reverse=True)}
+    places_sorted_by_negative = place_and_comments.keys()
+    print(places_sorted_by_negative)
     # articles = Article.objects.all().exclude(is_active=False).order_by('article_date')[:4]
-    return render(request, 'MainApp/homepage.html', {'places': places})
+    return render(request, 'MainApp/homepage.html', {'places': places,
+                                                     'places_sorted_by_negative': places_sorted_by_negative,
+                                                     })
+
+
+def find_bad_comments_num(place):
+    comments = Review.objects.filter(place_id=place.id)
+    good_comments = []
+    tolerable_comments = []
+    impossible_comments = []
+    for comm in comments:
+        if "Good" in comm.reviewers_attitude:
+            good_comments.append(comm)
+        elif "Impossible" in comm.reviewers_attitude:
+            impossible_comments.append(comm)
+        else:
+            tolerable_comments.append(comm)
+    return impossible_comments.__len__()
 
 
 def get_all_places(request):

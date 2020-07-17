@@ -48,6 +48,15 @@ img.place_img{
     margin: 1em;
 }
 
+.place_det_rating_img{
+    height: 8em;
+    margin: 1em;
+}
+
+.column{
+    margin-left: 9em;
+}
+
 
 /* width */
 ::-webkit-scrollbar {

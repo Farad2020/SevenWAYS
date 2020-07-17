@@ -79,15 +79,40 @@
         <div class="comment-section">
 
             <legend class="border-bottom mb-4">
-                <div class="navbar-brand" style="margin-top: 1em"> <h2>Отзывы: </h2></div></legend>
-            <div class="comment-counter">Число Отзывов: {{ comments.count }}</div>
-            <legend class="border-bottom mb-4"></legend>
+                <div class="navbar-brand" style="margin-top: 1em"> <h2>Отзывы({{ comments.count }}): </h2></div></legend>
+
+            <div class="row">
+                <div class="column">
+                    <img class="place_det_rating_img" src="/static/inapp%20sketches/wheelchair_man_rating.jpg">
+                </div>
+                <div class="column" style="margin-left: 0; margin-right: 7em">
+                    <h1 style="color: green">*</h1>
+                    <h1 style="color: yellow">*</h1>
+                    <h1 style="color: red">*</h1>
+                </div>
+                <div class="column">
+                    <img class="place_det_rating_img" src="/static/inapp%20sketches/caneman_rating.jpg">
+                </div>
+                <div class="column" style="margin-left: 0; margin-right: 7em">
+                    <h1 style="color: green">*</h1>
+                    <h1 style="color: yellow">*</h1>
+                    <h1 style="color: red">*</h1>
+                </div>
+                <div class="column">
+                    <img class="place_det_rating_img" src="/static/inapp%20sketches/electrowheelman_rating.jpg">
+                </div>
+                <div class="column" style="margin-left: 0; margin-right: 7em">
+                    <h1 style="color: green">*</h1>
+                    <h1 style="color: yellow">*</h1>
+                    <h1 style="color: red">*</h1>
+                </div>
+            </div>
+
             <div class="comment-counter">Число Положительных Отзывов: {{ good_comments }}</div>
-            <legend class="border-bottom mb-4"></legend>
             <div class="comment-counter">Число Безразличных Отзывов: {{ tolerable_comments }}</div>
-            <legend class="border-bottom mb-4"></legend>
             <div class="comment-counter">Число Негативных Отзывов: {{ impossible_comments }}</div>
             <legend class="border-bottom mb-4"></legend>
+
             {% for comment in comments %}
                 {% if  "Good" in  comment.reviewers_attitude %}
                     <div class="card text-white bg-success">

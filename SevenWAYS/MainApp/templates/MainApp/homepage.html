@@ -48,13 +48,8 @@
     <div class="content" >
         <legend class="border-bottom mb-4"><div class="navbar-brand"> <h2>Список Объектов: </h2></div></legend>
 
-        {% for place in places %}
+        {% for place in places_sorted_by_negative %}
             <div class="place_space" >
-                {#							<!-- <div class="score yellow">{{ game.game_score }}</div>#}
-                {#							<img src="{{ game.game_img.url }}" class="pg-img" /> -->#}
-                {#                            <!--{% url 'game_pages:game_det' game.id %}  -->#}
-                {% for i in '01234567891011'|make_list %}
-
                     <ul class="list-group">
                         <li class="list-group-item">
                             <div class="place_box" >
@@ -62,9 +57,6 @@
                             </div>
                         </li>
                     </ul>
-
-                {% endfor %}
-
             </div>
         {% endfor %}
     </div>
